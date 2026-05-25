@@ -1,28 +1,35 @@
-# Devops_agent
-
-# AI-Powered DevOps Incident Analyzer
+# AI-Powered Document Summarizer Agent
 
 ## Overview
 
-AI-Powered DevOps Incident Analyzer is an intelligent multi-agent system built using CrewAI and Ollama to automate log analysis, issue investigation, and solution generation for DevOps and SRE teams.
+AI-Powered Document Summarizer is an intelligent multi-agent system built using CrewAI, Ollama, and open-source LLMs to analyze, summarize, and understand large documents efficiently.
 
-The system reads logs from sources like Loki or log files, identifies critical issues, investigates related solutions using LLM reasoning, and provides actionable remediation steps.
+The system can process:
 
-This project is designed to reduce manual debugging time and help DevOps engineers quickly resolve infrastructure and application issues.
+* PDFs
+* DOCX files
+* Text files
+* Reports
+* Technical documents
+* Meeting notes
+* Research papers
+
+It uses ChromaDB as memory storage for contextual retrieval and long-term document understanding.
 
 ---
 
 # Features
 
-* Automated log analysis
-* Error categorization and extraction
-* AI-powered issue investigation
-* Root cause analysis
-* Suggested remediation steps
-* Step-by-step troubleshooting guidance
-* Loki/log file integration
-* Local LLM execution using Ollama
-* Multi-agent orchestration using CrewAI
+* AI-powered document summarization
+* Multi-agent workflow using CrewAI
+* Context-aware memory using ChromaDB
+* Local LLM execution with Ollama
+* Semantic search and retrieval
+* Long document processing
+* Key point extraction
+* Topic identification
+* Action item generation
+* Question answering from documents
 
 ---
 
@@ -30,56 +37,53 @@ This project is designed to reduce manual debugging time and help DevOps enginee
 
 The system contains multiple AI agents working together.
 
-## 1. Log Analyzer Agent
+## 1. Document Reader Agent
 
 Responsible for:
 
-* Reading logs from Loki or files
-* Extracting important errors
-* Identifying issue categories
-* Detecting failure patterns
+* Reading uploaded files
+* Extracting document content
+* Cleaning and chunking text
+* Preparing embeddings
 
-### Technologies
+Supported formats:
 
-* CrewAI Agent
-* Loki/File Reader Tool
-* Ollama LLM
+* PDF
+* DOCX
+* TXT
 
 ---
 
-## 2. Issue Investigator Agent
+## 2. Content Analyzer Agent
 
 Responsible for:
 
-* Investigating identified issues
-* Searching for related known problems
-* Finding documentation references
-* Understanding root causes
-
-### Responsibilities
-
-* Kubernetes issue investigation
-* Container failure analysis
-* CI/CD troubleshooting
-* Infrastructure debugging
+* Understanding document context
+* Identifying important sections
+* Extracting key insights
+* Categorizing information
 
 ---
 
-## 3. Solution Specialist Agent
+## 3. Summarizer Agent
 
 Responsible for:
 
-* Generating remediation plans
-* Providing step-by-step fixes
-* Suggesting preventive actions
-* Recommending best practices
+* Generating concise summaries
+* Creating section-wise summaries
+* Highlighting important points
+* Producing human-readable outputs
 
-### Output Includes
+---
 
-* Solution steps
-* Configuration fixes
-* Deployment recommendations
-* Preventive monitoring suggestions
+## 4. Memory Retrieval Agent
+
+Responsible for:
+
+* Retrieving previous document context
+* Searching semantic embeddings
+* Using ChromaDB memory
+* Supporting contextual Q&A
 
 ---
 
@@ -88,152 +92,82 @@ Responsible for:
 * Python
 * CrewAI
 * Ollama
+* ChromaDB
 * Mistral / Qwen Models
-* Loki
-* Kubernetes
-* Docker
+* LangChain
+* Sentence Transformers
 
 ---
 
 # Recommended Models
 
-For systems with 16GB RAM:
+For 16GB RAM systems:
 
-| Model            | Purpose                                 |
-| ---------------- | --------------------------------------- |
-| mistral          | Fast and lightweight                    |
-| qwen2.5-coder:7b | Best for debugging and DevOps reasoning |
-| phi3             | Lightweight alternative                 |
-
----
-
-# Installation
-
-## Clone Repository
-
-```bash
-git clone <repository-url>
-cd devop-begineer
-```
+| Model            | Purpose                                     |
+| ---------------- | ------------------------------------------- |
+| mistral          | Fast and lightweight summarization          |
+| qwen2.5-coder:7b | Better reasoning and document understanding |
+| phi3             | Lightweight alternative                     |
 
 ---
 
-## Create Virtual Environment
+# Memory Layer
 
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+ChromaDB is used for:
 
----
+* Semantic document search
+* Context retention
+* Similarity matching
+* Retrieval-Augmented Generation (RAG)
 
-## Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
+This helps the AI understand large documents efficiently without losing context.
 
 ---
 
-# Install Ollama
+# Workflow
 
-Install Ollama from:
-
-https://ollama.com
-
----
-
-# Pull Required Models
-
-```bash
-ollama pull mistral
-```
-
-OR
-
-```bash
-ollama pull qwen2.5-coder:7b
-```
-
----
-
-# Environment Variables
-
-Create a `.env` file:
-
-```env
-OLLAMA_BASE_URL=http://localhost:11434
-EXA_API_KEY=your_api_key
-```
-
----
-
-# Running the Project
-
-```bash
-python main.py
-```
-
----
-
-# Sample Agent Configuration
-
-```python
-llm = LLM(
-    model="ollama/mistral",
-    base_url="http://localhost:11434"
-)
-```
-
----
-
-# Example Workflow
-
-1. Logs are fetched from Loki or files
-2. Log Analyzer extracts critical issues
-3. Issue Investigator searches for related solutions
-4. Solution Specialist generates remediation steps
-5. Final report is generated
+1. User uploads document
+2. Document Reader extracts content
+3. Text is chunked and stored in ChromaDB
+4. Content Analyzer identifies important information
+5. Summarizer Agent generates summaries
+6. Memory Retrieval Agent enables contextual Q&A
 
 ---
 
 # Future Improvements
 
-* ChromaDB memory integration
-* RAG-based incident history
-* Slack/WhatsApp alerts
-* Kubernetes auto-remediation
-* Grafana integration
-* Incident dashboard
-* Multi-cluster support
-* AI-powered preventive monitoring
+* Multi-document comparison
+* Voice summarization
+* Web dashboard
+* Chat with documents
+* WhatsApp/Slack integration
+* OCR support for scanned PDFs
+* Multi-language support
+* AI-generated action items
 
 ---
 
 # Use Cases
 
-* Kubernetes incident analysis
-* Production issue debugging
-* CI/CD pipeline troubleshooting
-* Application crash investigation
-* Infrastructure monitoring
-* Automated SRE assistance
+* Research paper summarization
+* Meeting note analysis
+* Legal document review
+* Technical documentation understanding
+* SOP summarization
+* Healthcare report analysis
+* Business report insights
 
 ---
 
 # Advantages
 
-* Reduces manual troubleshooting time
-* Faster incident resolution
-* Centralized AI-powered investigation
-* Improved DevOps productivity
-* Works completely locally using Ollama
-
----
-
-# License
-
-MIT License
+* Saves reading time
+* Improves productivity
+* Handles large documents efficiently
+* Works locally using Ollama
+* Privacy-friendly architecture
+* Supports long-term memory with ChromaDB
 
 ---
 
@@ -241,4 +175,4 @@ MIT License
 
 Murali Yadav
 
-AI-Powered DevOps & Automation Engineer
+AI-Powered DevOps & Agentic AI Developer
